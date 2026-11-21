@@ -12,11 +12,12 @@ const LINKS = [
 
 // NavLink gives us isActive, so we can style the current page differently
 function linkClass({ isActive }) {
-  return `rounded-md px-3 py-2 text-sm font-medium ${
-    isActive ? 'bg-indigo-600 text-white' : 'text-slate-700 hover:bg-slate-200'
+  return `rounded-xl border-[3px] border-slate-900 px-3 py-2 text-sm font-bold transition ${
+    isActive
+      ? 'bg-pink-400 shadow-[4px_4px_0_0_#0f172a]'
+      : 'bg-white hover:bg-yellow-200'
   }`;
 }
-
 export default function Navbar() {
   const { scenarioName } = useScenario();
 
