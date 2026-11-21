@@ -1,46 +1,43 @@
-﻿import { ScenarioProvider, useScenario } from './context/ScenarioContext'
-import useOptimise from './hooks/useOptimise'
-import { formatRs, formatPercent } from './utils/format'
+﻿// App.jsx - providers + routes. BrowserRouter is already in main.jsx.
+import { Link, Route, Routes } from 'react-router-dom';
+import { ToastProvider } from './components/common/Toast';
+import { ScenarioProvider } from './context/ScenarioContext';
+import Layout from './components/layout/Layout';
+import Dashboard from './pages/Dashboard';
+import Appliances from './pages/Appliances';
+import Tariff from './pages/Tariff';
+import Scenarios from './pages/Scenarios';
+import About from './pages/About';
 
-// TEMPORARY screen to prove the foundation works. Stage 6 replaces this with routes.
-function SmokeTest() {
-  const { appliances, baseline, optimised, savings, warnings, loadSample, loading, error } = useScenario()
-  const opt = useOptimise()
-
+// Shown for any URL that matches no route
+function NotFound() {
   return (
-    <div className="mx-auto max-w-xl space-y-4 p-6">
-      <h1 className="text-2xl font-bold text-solar-dark">GridSync foundation check</h1>
-
-      <div className="flex gap-3">
-        <button onClick={loadSample} disabled={loading} className="rounded bg-solar px-4 py-2 text-white">
-          Load Sample Household
-        </button>
-        <button onClick={opt.run} disabled={opt.loading} className="rounded bg-peak px-4 py-2 text-white">
-          Optimise
-        </button>
-      </div>
-
-      {(error || opt.error) && <p className="rounded bg-peak-light p-2 text-peak-dark">{error || opt.error}</p>}
-
-      <ul className="rounded bg-white p-4 shadow">
-        <li>Appliances loaded: {appliances.length}</li>
-        <li>Baseline cost/day: {formatRs(baseline.total_cost)}</li>
-        <li>Optimised cost/day: {optimised ? formatRs(optimised.total_cost) : '-'}</li>
-        <li>Savings: {savings ? `${formatRs(savings.daily)} (${formatPercent(savings.percent)})` : '-'}</li>
-        <li>Peak load (baseline): {baseline.peak_load} kW</li>
-      </ul>
-
-      {warnings.map((w) => (
-        <p key={w} className="rounded bg-offpeak-light p-2 text-offpeak-dark">{w}</p>
-      ))}
+    <div className="py-12 text-center">
+      <h1 className="mb-2 text-2xl font-bold">Page not found</h1>
+      <p className="mb-4 text-slate-600">That page does not exist.</p>
+      <Link to="/" className="font-medium text-indigo-600 underline">
+        Go to the Dashboard
+      </Link>
     </div>
-  )
+  );
 }
 
 export default function App() {
   return (
-    <ScenarioProvider>
-      <SmokeTest />
-    </ScenarioProvider>
-  )
+    <ToastProvider>
+      <ScenarioProvider>
+        <Routes>
+          {/* Layout route: every child page is drawn inside Layout's <Outlet /> */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/appliances" element={<Appliances />} />
+            <Route path="/tariff" element={<Tariff />} />
+            <Route path="/scenarios" element={<Scenarios />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </ScenarioProvider>
+    </ToastProvider>
+  );
 }
