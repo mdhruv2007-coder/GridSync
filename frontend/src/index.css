@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Neo-brutalist base: cream page, heavy ink text, bold grotesk headings. */
 body {
-  @apply bg-slate-50 text-slate-800 antialiased;
+  @apply bg-amber-50 text-slate-900 antialiased;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+h1 {
+  font-family: 'Archivo Black', 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
