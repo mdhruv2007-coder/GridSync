@@ -12,6 +12,7 @@ import { useScenario } from '../context/ScenarioContext';
 import useOptimise from '../hooks/useOptimise';
 import { getErrorMessage } from '../api/client';
 import { formatPercent } from '../utils/format';
+import { buildScheduleCsv, downloadCsv } from '../utils/exportCsv';
 
 export default function Dashboard() {
   const { appliances, tariff, baseline, optimised, savings, warnings, loadSample } = useScenario();
@@ -27,6 +28,18 @@ export default function Dashboard() {
       showToast('Schedule optimised. Modelled saving ' + formatPercent(data.savings.percent) + '.', 'success');
     } else {
       showToast('Could not optimise the schedule.', 'error');
+    }
+  }
+
+  // Build the CSV from the current (possibly dragged) optimised schedule and download it.
+  function handleExport() {
+    try {
+      const csv = buildScheduleCsv(appliances, tariff, optimised);
+      downloadCsv('gridsync_schedule.csv', csv);
+      showToast('Schedule exported as gridsync_schedule.csv.', 'success');
+    } catch (err) {
+      const message = err && err.message ? err.message : 'Unknown error';
+      showToast('Could not export the CSV: ' + message, 'error');
     }
   }
 
@@ -99,11 +112,17 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Optimise button, messages */}
+      {/* Optimise and Export buttons, messages */}
       <div>
-        <Button size="lg" onClick={handleOptimise} disabled={loading}>
-          {loading ? 'Optimising...' : 'Optimise Schedule'}
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button size="lg" onClick={handleOptimise} disabled={loading}>
+            {loading ? 'Optimising...' : 'Optimise Schedule'}
+          </Button>
+          <Button variant="secondary" size="lg" onClick={handleExport} disabled={optimised === null}>
+            Export CSV
+          </Button>
+          {optimised === null && <span className="text-sm text-slate-500">Optimise first</span>}
+        </div>
 
         {error && (
           <div className="mt-3 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700">{error}</div>
