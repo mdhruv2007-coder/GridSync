@@ -1,4 +1,4 @@
-﻿# A scenario = a named bundle of appliances + one tariff.
+# A scenario = a named bundle of appliances + one tariff.
 from datetime import datetime, timezone
 
 from sqlalchemy import DateTime, String

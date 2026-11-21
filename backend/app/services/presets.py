@@ -1,4 +1,4 @@
-﻿"""Tariff presets and the sample scenario loader. All values are SAMPLES."""
+"""Tariff presets and the sample scenario loader. All values are SAMPLES."""
 import json
 from copy import deepcopy
 from pathlib import Path

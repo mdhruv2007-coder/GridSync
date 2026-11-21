@@ -1,4 +1,4 @@
-﻿"""Tests for cost.py: rate table, wrap-around hours, cost sum, savings maths."""
+"""Tests for cost.py: rate table, wrap-around hours, cost sum, savings maths."""
 import pytest
 
 from app.services.cost import (

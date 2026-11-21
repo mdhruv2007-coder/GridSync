@@ -1,4 +1,4 @@
-﻿"""Cost helpers. Pure functions: no database, no FastAPI.
+"""Cost helpers. Pure functions: no database, no FastAPI.
 
 Inputs can be plain dicts or Pydantic objects (get_value handles both).
 Money is rounded to 2 decimals and load to 3 decimals in the OUTPUT only.

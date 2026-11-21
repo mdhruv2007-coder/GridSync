@@ -1,4 +1,4 @@
-﻿"""Tests for scheduler.py: the eight required cases from the build plan."""
+"""Tests for scheduler.py: the eight required cases from the build plan."""
 import pytest
 
 from app.services.scheduler import (

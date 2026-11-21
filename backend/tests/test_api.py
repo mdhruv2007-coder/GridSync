@@ -1,4 +1,4 @@
-﻿# API tests. They use a temporary in-memory database, so gridsync.db is never touched.
+# API tests. They use a temporary in-memory database, so gridsync.db is never touched.
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, event

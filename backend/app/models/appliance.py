@@ -1,4 +1,4 @@
-﻿# One row per appliance. Fixed appliances have no earliest_start/deadline (they are never moved).
+# One row per appliance. Fixed appliances have no earliest_start/deadline (they are never moved).
 from typing import Optional
 
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String
