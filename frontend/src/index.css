@@ -1,15 +1,191 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Neo-brutalist base: cream page, heavy ink text, bold grotesk headings. */
-body {
-  @apply bg-amber-50 text-slate-900 antialiased;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+/* ===== GridSync neo-brutalist theme ===== */
+:root {
+  --ink: #111111;
+  --cream: #fff4dc;
+  --pink: #ff6fb5;
+  --orange: #ff8a1f;
+  --blue: #4db3ff;
+  --yellow: #ffd23f;
+  --teal: #2ec4a0;
+  --red: #e8412f;
+  --purple: #5b45e8;
 }
 
-h1 {
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings: big, loud, uppercase */
+h1, h2, h3 {
   font-family: 'Archivo Black', 'Space Grotesk', sans-serif;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
+  line-height: 0.95;
+  overflow-wrap: anywhere;
 }
+h1 { font-size: clamp(40px, 7vw, 96px); letter-spacing: -0.02em; }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; }
+
+/* Form fields */
+label:not(:has(input[type='checkbox'])):not(:has(input[type='radio'])) {
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+input:not([type='checkbox']):not([type='radio']):not([type='range']),
+select,
+textarea {
+  border: 3.5px solid var(--ink);
+  border-radius: 14px;
+  background: var(--cream);
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 500;
+}
+input:not([type='checkbox']):not([type='radio']):not([type='range']):focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+input[type='checkbox'],
+input[type='radio'] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--ink);
+}
+
+/* Every button gets the chunky pill look.
+   Background colour is left to Button.jsx so variants keep working. */
+button:not(.nb-keep) {
+  border: 3.5px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+button:not(.nb-keep):hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+button:not(.nb-keep):active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+}
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ===== Layout pieces ===== */
+.nb-frame {
+  margin: 14px;
+  min-height: calc(100vh - 28px);
+  display: flex;
+  flex-direction: column;
+  border: 4px solid var(--ink);
+  border-radius: 30px;
+  background: var(--cream);
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+@media (max-width: 640px) {
+  .nb-frame { margin: 8px; min-height: calc(100vh - 16px); border-radius: 20px; box-shadow: 4px 4px 0 var(--ink); }
+}
+
+.nb-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  border-bottom: 4px solid var(--ink);
+  background: #fff;
+}
+.nb-dots { display: flex; gap: 8px; }
+.nb-dots i { width: 20px; height: 20px; border-radius: 50%; border: 3px solid var(--ink); }
+.nb-brand { font-family: 'Archivo Black', sans-serif; font-size: 26px; color: var(--purple); margin: 0 10px; }
+.nb-link {
+  border: 3.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: #fff;
+  box-shadow: 3px 3px 0 var(--ink);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nb-link:hover { background: var(--yellow); }
+.nb-link-on, .nb-link-on:hover { background: var(--pink); }
+.nb-scenario {
+  margin-left: auto;
+  border: 3.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 16px;
+  background: var(--teal);
+  font-weight: 700;
+  font-size: 14px;
+}
+@media (max-width: 640px) {
+  .nb-nav { padding: 12px 14px; }
+  .nb-link { padding: 6px 12px; font-size: 13px; }
+  .nb-scenario { margin-left: 0; }
+}
+
+.nb-ticker {
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: 'Archivo Black', sans-serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  padding: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.nb-ticker-track { display: inline-flex; animation: nb-scroll 30s linear infinite; }
+.nb-ticker-track span { padding-right: 0.5em; }
+@keyframes nb-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .nb-ticker-track { animation: none; } }
+
+.nb-sticker { position: absolute; top: 8px; right: 16px; z-index: 0; pointer-events: none; transform: rotate(6deg); }
+.nb-content { position: relative; z-index: 1; }
+
+.nb-footer {
+  padding: 18px 28px;
+  border-top: 4px solid var(--ink);
+  background: #fff;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ===== Ready-made classes for Card.jsx / Button.jsx ===== */
+.nb-card {
+  position: relative;
+  border: 4px solid var(--ink);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 22px;
+}
+.nb-dots-bg {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2) 1.6px, transparent 1.7px);
+  background-size: 9px 9px;
+}
+.nb-bg-pink { background-color: var(--pink); }
+.nb-bg-orange { background-color: var(--orange); }
+.nb-bg-blue { background-color: var(--blue); }
+.nb-bg-yellow { background-color: var(--yellow); }
+.nb-bg-teal { background-color: var(--teal); }
+.nb-bg-red { background-color: var(--red); color: #fff; }
