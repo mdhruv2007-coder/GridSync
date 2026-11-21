@@ -1,4 +1,4 @@
-﻿"""Constraint-based scheduler. Pure functions: no database, no FastAPI.
+"""Constraint-based scheduler. Pure functions: no database, no FastAPI.
 
 Time model: circular 24-slot day. A window may cross midnight.
 """

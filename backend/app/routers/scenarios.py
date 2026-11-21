@@ -1,4 +1,4 @@
-﻿# Save, list, load and delete scenarios (appliances + tariff stored together).
+# Save, list, load and delete scenarios (appliances + tariff stored together).
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 

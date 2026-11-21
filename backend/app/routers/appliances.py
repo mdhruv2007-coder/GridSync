@@ -1,4 +1,4 @@
-﻿# CRUD endpoints for appliances. Every appliance belongs to one saved scenario.
+# CRUD endpoints for appliances. Every appliance belongs to one saved scenario.
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 

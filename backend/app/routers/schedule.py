@@ -1,4 +1,4 @@
-﻿# Stateless scheduling endpoints: everything comes in the request body, nothing is saved.
+# Stateless scheduling endpoints: everything comes in the request body, nothing is saved.
 from fastapi import APIRouter, HTTPException
 
 from app.schemas.schedule import (

@@ -1,4 +1,4 @@
-﻿# Tariff endpoints: read/replace the tariff of a scenario, and list sample presets.
+# Tariff endpoints: read/replace the tariff of a scenario, and list sample presets.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
